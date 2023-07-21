@@ -1,10 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 234, 239, 230;
   --background-end-rgb: 255, 255, 255;
 }
 
@@ -24,4 +24,27 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  font-family: 'Pacifico', cursive!important;
+/* 隐藏横向滚动条，并禁用用户滚动 */
+  overflow-x: hidden;
+  overflow-y: auto;
+
+/* 隐藏横向滚动条并自定义滚动条样式 */
+
+}
+body::-webkit-scrollbar {
+  display: none; /* 隐藏滚动条 */
+}
+
+/* 自定义滚动条样式 */
+body::-webkit-scrollbar {
+  width: 8px; /* 设置滚动条宽度 */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #aaa; /* 设置滚动条滑块颜色 */
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* 设置滚动条轨道颜色 */
 }
