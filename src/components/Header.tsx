@@ -12,12 +12,11 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import React, { useEffect, useRef, useState } from "react";
-import init, * as aleo from 'aleo-wasm-swift';
+import init, * as aleo from 'aleo-wasm-swift-decrypt-record';
 import { useAleoPrivateKey } from "@/utils/useAleo";
 import axios from "axios";
 import { workerRecordHelper } from "@/utils/aleo/worker-helper";
 import Link from "next/link";
-import { PrivateKey } from "aleo-wasm-swift-decrypt-record";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -77,46 +76,46 @@ export const Header = () => {
                 db.close();
             };
         };
-        (async function () {
-            console.log(1);
-            await aleo.default()
-            console.log(aleo);
-            JSON.parse(window?.localStorage.getItem("aleoRecords") as string) && typeof window !== "undefined" && JSON.parse(window?.localStorage.getItem("aleoRecords") as string).forEach((t: any, i: number) => {
-                const s = (aleo?.PrivateKey?.from_string(aleoPrivate) as PrivateKey).decryptrecords(JSON.stringify([{ record_ciphertext: t.record_ciphertext, sn_id: t.sn_id }]))
+        // (async function () {
+        //     console.log(1);
+        //     await aleo.default()
+        //     console.log(aleo);
+        //     JSON.parse(window?.localStorage.getItem("aleoRecords") as string) && typeof window !== "undefined" && JSON.parse(window?.localStorage.getItem("aleoRecords") as string).forEach((t: any, i: number) => {
+        //         const s = (aleo?.PrivateKey?.from_string(aleoPrivate) as PrivateKey).decryptrecords(JSON.stringify([{ record_ciphertext: t.record_ciphertext, sn_id: t.sn_id }]))
 
-                s && axios.get('https://vm.aleo.org/api/testnet3/find/transitionID/' + (JSON.parse(s)[0].sn_id)).then(e => {
-                    console.log(e, "is used");
-                    var request = indexedDB.open('aleoDB', 1);
+        //         s && axios.get('https://vm.aleo.org/api/testnet3/find/transitionID/' + (JSON.parse(s)[0].sn_id)).then(e => {
+        //             console.log(e, "is used");
+        //             var request = indexedDB.open('aleoDB', 1);
 
-                    request.onsuccess = function (event: any) {
-                        var db = event.target.result;
+        //             request.onsuccess = function (event: any) {
+        //                 var db = event.target.result;
 
-                        var transaction = db.transaction(['AleoStore'], 'readwrite');
-                        var store = transaction.objectStore('AleoStore');
+        //                 var transaction = db.transaction(['AleoStore'], 'readwrite');
+        //                 var store = transaction.objectStore('AleoStore');
 
 
 
-                        var deleteRequest = store.delete(t.id);
+        //                 var deleteRequest = store.delete(t.id);
 
-                        deleteRequest.onsuccess = function (event: any) {
-                            console.log('success');
-                        };
+        //                 deleteRequest.onsuccess = function (event: any) {
+        //                     console.log('success');
+        //                 };
 
-                        deleteRequest.onerror = function (event: any) {
-                            console.log('fail');
-                        };
+        //                 deleteRequest.onerror = function (event: any) {
+        //                     console.log('fail');
+        //                 };
 
-                        transaction.oncomplete = function () {
-                            db.close();
-                        };
-                    };
+        //                 transaction.oncomplete = function () {
+        //                     db.close();
+        //                 };
+        //             };
 
-                    request.onerror = function (event) {
-                        console.log('open db error');
-                    };
-                })
-            });
-        }())
+        //             request.onerror = function (event) {
+        //                 console.log('open db error');
+        //             };
+        //         })
+        //     });
+        // }())
     }, [refresh])
     const handleClose = () => {
         setOpen(false);
@@ -125,7 +124,7 @@ export const Header = () => {
                 return
             }
             workerRef.current = workerRecordHelper()
-            await aleo.default()
+            !aleo && await init()
             const privateKey = (aleo?.PrivateKey.from_string(aleoPrivate));
 
             const viewKey = privateKey?.to_view_key().to_string();

@@ -9,11 +9,11 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import React from "react";
+import React, { useEffect } from "react";
 import { Bubble } from "@/components/Bubble";
 import Head from 'next/head';
 import Link from "next/link";
-
+import aleo from 'aleo-wasm-swift'
 export default function Home() {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -43,6 +43,7 @@ export default function Home() {
         "Whether you're a seasoned festival-goer or a first-timer, music festivals are an unforgettable experience.",
         "7 Days of Joy on the Pacific, sway in the ocean ballroom, and feel your holiday."
     ];
+
     return (
         <>
 
