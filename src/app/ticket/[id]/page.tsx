@@ -76,7 +76,7 @@ export default function Ticket({ params: { id = 1 } }) {
 
         workerRef.current.addEventListener("message", ev => {
             if (ev.data.type == 'EXECUTION_TRANSACTION_COMPLETED') {
-                axios.post("https://vm.aleo.org/api" + "/testnet3/transaction/broadcast", ev.data.executeTransaction, {
+                axios.post("https://chain.daosso.xyz" + "/testnet3/transaction/broadcast", ev.data.executeTransaction, {
                     headers: {
                         'Content-Type': 'application/json',
                     }

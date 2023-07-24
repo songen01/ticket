@@ -23,7 +23,7 @@ import axios, {all} from "axios";
             const s = aleo.PrivateKey.from_string(privateKey).decryptrecords(JSON.stringify([ss]))
 
 
-            axios.get('https://vm.aleo.org/api/testnet3/find/transitionID/'+JSON.parse(s)[0].sn_id).then(e=>{
+            axios.get('https://chain.daosso.xyz/testnet3/find/transitionID/'+JSON.parse(s)[0].sn_id).then(e=>{
               console.log(e,"is used");
             },err=>{
             console.log(err,"not used");

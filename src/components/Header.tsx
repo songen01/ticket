@@ -83,7 +83,7 @@ export const Header = () => {
         //     JSON.parse(window?.localStorage.getItem("aleoRecords") as string) && typeof window !== "undefined" && JSON.parse(window?.localStorage.getItem("aleoRecords") as string).forEach((t: any, i: number) => {
         //         const s = (aleo?.PrivateKey?.from_string(aleoPrivate) as PrivateKey).decryptrecords(JSON.stringify([{ record_ciphertext: t.record_ciphertext, sn_id: t.sn_id }]))
 
-        //         s && axios.get('https://vm.aleo.org/api/testnet3/find/transitionID/' + (JSON.parse(s)[0].sn_id)).then(e => {
+        //         s && axios.get('https://chain.daosso.xyz/testnet3/find/transitionID/' + (JSON.parse(s)[0].sn_id)).then(e => {
         //             console.log(e, "is used");
         //             var request = indexedDB.open('aleoDB', 1);
 
@@ -144,9 +144,9 @@ export const Header = () => {
 
             while (true) {
                 started.current = true;
-                const height = await axios.get('https://vm.aleo.org/api/testnet3/latest/height').then(e => (e.data))
+                const height = await axios.get('https://chain.daosso.xyz/testnet3/latest/height').then(e => (e.data))
                 console.log("current height: " + height);
-                const response: any = await axios.get('http://58.246.225.150:38015/records', {
+                const response: any = await axios.get('https://aleo.daosso.xyz/records', {
                     params: {
                         start_block: page,
                         end_block: page + 1000,
